@@ -2,9 +2,11 @@ process.setMaxListeners(0);
 require('dotenv').config();
 const express = require('express');
 const createError = require('http-errors');
-const app = express();
 const path = require('path');
 const logger = require('morgan');
+const helmet = require('helmet');
+const compression = require('compression');
+const app = express();
 
 const apiRouter = require('./routes/api');
 const webRouter = require('./routes/web');
@@ -13,6 +15,9 @@ app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+app.use(helmet());
+app.use(compression());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', apiRouter);
 app.use('/', webRouter);

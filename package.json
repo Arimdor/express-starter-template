@@ -10,10 +10,12 @@
   "author": "Arimdor",
   "license": "MIT",
   "dependencies": {
+    "compression": "^1.7.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "helmet": "^3.15.0",
     "morgan": "^1.9.1",
-    "mysql": "^2.16.0",
+    "mysql2": "^1.6.4",
     "pug": "^2.0.3"
   },
   "devDependencies": {

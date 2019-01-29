@@ -3,6 +3,9 @@ extends layouts/layout
 block content
     h1= title
     p Welcome to #{title}
+    ul
+    each item in messages
+        li= item.text
 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js")
     script(src="http://code.jquery.com/jquery-latest.min.js")

@@ -1,21 +1,12 @@
-const DB = require('../../config/database');
+const homeModel = require('../models/homeModel');
 
 module.exports = {
     async index(req, res) {
-        DB.query('select * from test', null, function (result, err) {
-            if (err) {
-                throw err;
-            }
-        });
-        res.render('index', {'title': "Arimdor's Template"});
+        const info = await homeModel.getDemoInfo();
+        res.render('index', {'messages': info});
     },
-    indexJSON(req, res) {
-        DB.query('select * from test', null, function (result, err) {
-            if (err) {
-                throw err;
-            }
-            res.json({'title': "Arimdor's Template", 'result': JSON.stringify(result)});
-
-        });
+    async indexJSON(req, res) {
+        const info = await homeModel.getDemoInfo();
+        res.json({'title': "Arimdor's Template", 'messages': JSON.stringify(info)});
     }
 };

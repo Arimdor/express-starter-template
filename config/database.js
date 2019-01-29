@@ -1,46 +1,21 @@
-process.setMaxListeners(0);
+const mysql = require('mysql2');
 
-const mysql = require("mysql");
+let pool;
 
-const pool = mysql.createPool({
-    connectionLimit: 4,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
-
-const DB = (function () {
-    function _query(query, params, callback) {
-        pool.getConnection(function (err, connection) {
-            if (err) {
-                connection.release();
-                callback(null, err);
-                throw err;
-            }
-
-            connection.query(query, params, function (err, rows) {
-                connection.release();
-                if (!err) {
-                    callback(rows);
-                } else {
-                    callback(null, err);
-                }
-
-            });
-
-            connection.on('error', function (err) {
-                console.log('mysql: ' + err);
-                connection.release();
-                callback(null, err);
-                throw err;
-            });
-        });
+function getPool() {
+    if (pool) {
+        return pool;
     }
+    pool = mysql.createPool({
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        connectionLimit: 10,
+        queueLimit: 0
+    }).promise();
+    return pool;
+}
 
-    return {
-        query: _query
-    };
-})();
-
-module.exports = DB;
+module.exports = getPool();

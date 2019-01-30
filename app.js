@@ -1,12 +1,17 @@
-process.setMaxListeners(0);
 require('dotenv').config();
 const express = require('express');
 const createError = require('http-errors');
 const path = require('path');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
+const redis = require("redis");
+
 const app = express();
+const client  = redis.createClient();
 
 const apiRouter = require('./routes/api');
 const webRouter = require('./routes/web');
@@ -14,9 +19,17 @@ const webRouter = require('./routes/web');
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'pug');
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(helmet());
 app.use(compression());
+app.use(session({
+    secret: 'ssshhhhh',
+    store: new RedisStore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
+    saveUninitialized: false,
+    resave: false,
+    rolling: true
+}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', apiRouter);

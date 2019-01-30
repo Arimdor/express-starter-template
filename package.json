@@ -10,13 +10,17 @@
   "author": "Arimdor",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "compression": "^1.7.3",
+    "connect-redis": "^3.4.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "helmet": "^3.15.0",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.4",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",

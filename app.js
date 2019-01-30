@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
+const cors = require('cors')
 const redis = require("redis");
 
 const app = express();
@@ -23,8 +24,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(helmet());
 app.use(compression());
+app.use(cors());
 app.use(session({
-    secret: 'ssshhhhh',
+    secret: 'O~kV!Um]+(r;[Mb[m-4nnxpql.[!@R',
     store: new RedisStore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
     saveUninitialized: false,
     resave: false,

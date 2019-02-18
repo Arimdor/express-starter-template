@@ -14,17 +14,21 @@ export async function bearerStrategy(token, done) {
     }
 }
 
-export async function localStrategy(email, password, done) {
+export async function localStrategy(username, password, done) {
     try {
-        const user = await User.findByEmail(email);
-        if (!user) {
-            return done(null, false, {message: 'Incorrect username.'});
+        const user = await User.findByEmail(username);
+        if (user == null) {
+            console.log('bad user');
+            return done(null, false);
         }
-        if (await User.validatePassword(password, user)) {
-            return done(null, user);
+        if (!await User.validatePassword(password, user.password)) {
+            console.log('bad pass');
+            return done(null, false);
         }
-        return done(null, false, {message: 'Incorrect password.'});
+        console.log('g1');
+        return done(null, user);
     } catch (e) {
+        console.log(e);
         return done(e);
     }
 }

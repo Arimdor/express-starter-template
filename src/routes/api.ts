@@ -1,9 +1,10 @@
 import {Router} from "express";
-import * as passport from "passport";
-import {HomeController} from "../app/controllers/homeController";
+import * as UserController from "../app/controllers/userController";
+import * as Auth from "../app/controllers/authController";
 
 const router = Router();
 
-router.get("/", passport.authenticate("bearer", { session: false }), HomeController.indexJSON);
+router.post('/login', Auth.login);
+router.get("/", Auth.authenticated, UserController.helloWorld);
 
 export default router;

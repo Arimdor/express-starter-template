@@ -26,8 +26,7 @@
   "author": "Arimdor",
   "license": "MIT",
   "dependencies": {
-    "@types/es6-promise": "^3.3.0",
-    "@types/jest": "^24.0.5",
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
@@ -35,15 +34,16 @@
     "express": "^4.16.4",
     "helmet": "^3.15.0",
     "ioredis": "^4.6.2",
-    "jest": "^24.1.0",
+    "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.4",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
-    "pug": "^2.0.3",
+    "passport-local": "^1.0.0",
     "redis": "^2.8.0",
     "ts-jest": "^23.10.5",
-    "ts-node": "^8.0.2"
+    "ts-node": "^8.0.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@types/compression": "0.0.36",
@@ -52,8 +52,11 @@
     "@types/express": "^4.16.1",
     "@types/helmet": "0.0.42",
     "@types/ioredis": "^4.0.6",
+    "@types/jest": "^24.0.5",
     "@types/morgan": "^1.7.35",
     "@types/mysql2": "github:types/mysql2",
+    "@types/passport": "^1.0.0",
+    "jest": "^24.1.0",
     "nodemon": "^1.18.9",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
